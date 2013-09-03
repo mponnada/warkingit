@@ -1,5 +1,7 @@
 var express = require('express');
-var fs = require('fs')
+var fs = require('fs');
+var Sendgrid = require("sendgrid-web");
+
 
 var app = express.createServer(express.logger());
 var line = fs.readFileSync('index.html','utf8',function(err,data){
@@ -41,8 +43,13 @@ app.get('/mobile-app-in-3-days', function(request, response) {
       response.send(data);
     });
 
+app.get('/contact', function(request, response) {
+      var data = fs.readFileSync('contact.html').toString();
+      response.send(data);
+    });
 
 var port = process.env.PORT || 8080;
 app.listen(port, function() {
   console.log("Listening on " + port);
 });
+
